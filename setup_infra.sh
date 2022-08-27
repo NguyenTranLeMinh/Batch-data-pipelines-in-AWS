@@ -98,20 +98,20 @@ echo "EC2 IPV4 is $EC2_IPV4"
 
 echo "SCP to copy code to remote server"
 cd ../
-scp -o "IdentitiesOnly yes" -i ./beginner_de_project/sde-key.pem -r ./beginner_de_project ubuntu@$EC2_IPV4:/home/ubuntu/beginner_de_project
-cd beginner_de_project
+scp -o "IdentitiesOnly yes" -i ./Batch_data_pipelines_in_AWS/sde-key.pem -r ./Batch_data_pipelines_in_AWS ubuntu@$EC2_IPV4:/home/ubuntu/Batch_data_pipelines_in_AWS
+cd Batch_data_pipelines_in_AWS
 
 echo "Clean up stale data"
 sleep 10
-ssh -o "IdentitiesOnly yes" -i "sde-key.pem" ubuntu@$EC2_IPV4 'cd beginner_de_project && rm -f data.zip && rm -rf data'
+ssh -o "IdentitiesOnly yes" -i "sde-key.pem" ubuntu@$EC2_IPV4 'cd Batch_data_pipelines_in_AWS && rm -f data.zip && rm -rf data'
 
 echo "Download data"
 sleep 10
-ssh -o "IdentitiesOnly yes" -i "sde-key.pem" ubuntu@$EC2_IPV4 'cd beginner_de_project && wget https://start-data-engg.s3.amazonaws.com/data.zip && sudo unzip data.zip && sudo chmod 755 data'
+ssh -o "IdentitiesOnly yes" -i "sde-key.pem" ubuntu@$EC2_IPV4 'cd Batch_data_pipelines_in_AWS && wget https://start-data-engg.s3.amazonaws.com/data.zip && sudo unzip data.zip && sudo chmod 755 data'
 
 echo "Recreate logs and temp dir"
 sleep 10
-ssh -o "IdentitiesOnly yes" -i "sde-key.pem" ubuntu@$EC2_IPV4 'cd beginner_de_project && rm -rf logs && mkdir logs && rm -rf temp && mkdir temp && sudo chmod -R 777 /opt && sudo chmod -R 777 ./logs && sudo chmod -R 777 ./data && sudo chmod -R 777 ./temp'
+ssh -o "IdentitiesOnly yes" -i "sde-key.pem" ubuntu@$EC2_IPV4 'cd Batch_data_pipelines_in_AWS && rm -rf logs && mkdir logs && rm -rf temp && mkdir temp && sudo chmod -R 777 /opt && sudo chmod -R 777 ./logs && sudo chmod -R 777 ./data && sudo chmod -R 777 ./temp'
 
 echo "Creating an AWS EMR Cluster named "$SERVICE_NAME""
 aws emr create-default-roles >> setup.log
@@ -236,7 +236,7 @@ rm ./redshift_setup.sql
 
 echo "Spinning up remote Airflow docker containers"
 sleep 60
-ssh -o "IdentitiesOnly yes" -i "sde-key.pem" ubuntu@$EC2_IPV4 'cd beginner_de_project && echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env && docker compose up postgres -d && sleep 5 && docker compose up airflow-init && docker compose up --build -d'
+ssh -o "IdentitiesOnly yes" -i "sde-key.pem" ubuntu@$EC2_IPV4 'cd Batch_data_pipelines_in_AWS && echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env && docker compose up postgres -d && sleep 5 && docker compose up airflow-init && docker compose up --build -d'
 
 echo "Sleeping 5 Minutes to let Airflow containers reach a healthy state"
 sleep 300
