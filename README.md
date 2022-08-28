@@ -15,4 +15,4 @@
 3. Hủy cơ sở hạ tầng đã tạo (phí khoảng $0.5/giờ)
 - ./tear_down_infra.sh {new-s3-bucket-name}
 
-[b]
+[bổ sung sau...]
