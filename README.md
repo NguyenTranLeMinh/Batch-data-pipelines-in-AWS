@@ -16,7 +16,7 @@
 - ./tear_down_infra.sh {new-s3-bucket-name}
 
 4. Sơ đồ:
-![SDE](https://user-images.githubusercontent.com/105615288/187131028-6b7dc263-ac31-463b-a062-791904dc947f.png)
+![SDE](https://user-images.githubusercontent.com/105615288/187131318-0f6a7d47-f4f2-49e0-aee4-1608ffefbe14.png)
 
 
 
